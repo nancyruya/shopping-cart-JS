@@ -8,7 +8,14 @@ let cart = [];
 let buttonDOM = [];
 
 //UI
-class UI {}
+class UI {
+    displayProducts(obj) {
+        let results = '';
+        obj.forEach(products=>{
+            results += ''
+        })
+    }
+}
 
 //storage
 
@@ -21,7 +28,8 @@ class Products {
     try {
       const results = await fetch("products.json");
       const data = await results.json();
-      console.log(data);
+      const products = data.items;
+      return products;
     } catch (err) {
       console.log(err);
     }
@@ -33,4 +41,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   const products = new Products();
 
   const productsObj = await products.getProducts();
+  ui.displayProducts(productsObj)
 });
