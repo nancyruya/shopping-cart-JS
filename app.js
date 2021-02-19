@@ -10,10 +10,53 @@ let buttonDOM = [];
 //UI
 class UI {
     displayProducts(obj) {
-        let results = '';
-        obj.forEach(products=>{
-            results += ''
-        })
+        let results = "";
+        obj.forEach(({ title, image, id, price }) => {
+            results += '<div class="product">
+            <div class="image__container">
+              <img src=${image} alt="" />
+            </div>
+            <div class="product__footer">
+              <h1>${title}</h1>
+              <div class="rating">
+                <span>
+                  <svg>
+                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                  </svg>
+                </span>
+                <span>
+                  <svg>
+                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                  </svg>
+                </span>
+                <span>
+                  <svg>
+                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                  </svg>
+                </span>
+                <span>
+                  <svg>
+                    <use xlink:href="./images/sprite.svg#icon-star-full"></use>
+                  </svg>
+                </span>
+                <span>
+                  <svg>
+                    <use xlink:href="./images/sprite.svg#icon-star-empty"></use>
+                  </svg>
+                </span>
+              </div>
+              <div class="bottom">
+                <div class="btn__group">
+                  <a href="#" class="btn addToCart" data-id=${id}>Add to Cart</a>
+                  <a href="#" class="btn view">View</a>
+                </div>
+                <div class="price">$${price}</div>
+              </div>
+            </div>
+          </div>';
+        });
+
+        productDOMDOM.innerHTML = results;
     }
 }
 
