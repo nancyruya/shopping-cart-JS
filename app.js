@@ -12,7 +12,7 @@ class UI {
     displayProducts(obj) {
         let results = "";
         obj.forEach(({ title, image, id, price }) => {
-            results += '<div class="product">
+            results += `<div class="product">
             <div class="image__container">
               <img src=${image} alt="" />
             </div>
@@ -53,10 +53,10 @@ class UI {
                 <div class="price">$${price}</div>
               </div>
             </div>
-          </div>';
+          </div>`;
         });
 
-        productDOMDOM.innerHTML = results;
+        productDOM.innerHTML = results;
     }
 }
 
