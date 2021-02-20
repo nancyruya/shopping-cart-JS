@@ -61,8 +61,12 @@ class UI {
 }
 
 //storage
-
-class Storage {}
+//use static method
+class Storage {
+    static saveProducts(obj){
+        localStorage.setItem("products", JSON.stringify(obj));
+    }
+}
 
 //products
 //using fetch api so using async, await the result
@@ -85,4 +89,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const productsObj = await products.getProducts();
   ui.displayProducts(productsObj)
+  Storage.saveProducts(productsObj)
 });
