@@ -58,6 +58,11 @@ class UI {
 
         productDOM.innerHTML = results;
     }
+
+    getButtons() {
+        const buttons = document.querySelectorAll('.addToCart')
+        console.log(buttons)
+    }
 }
 
 //storage
@@ -88,6 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const products = new Products();
 
   const productsObj = await products.getProducts();
-  ui.displayProducts(productsObj)
-  Storage.saveProducts(productsObj)
+  ui.displayProducts(productsObj);
+  ui.getButtons();
+  Storage.saveProducts(productsObj);
 });
