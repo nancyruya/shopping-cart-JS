@@ -65,8 +65,19 @@ class UI {
         buttonDOM = buttons
         buttons.forEach(button=>{
             const id = button.dataset.id;
-            console.log(id);
-        })
+            const inCart = cart.find(item => item.id === id);
+
+            if (inCart) {
+                button.innerText = "In Cart";
+                button.disabled = true;
+            }
+
+            //when click, passing callback function
+            button.addEventListener("click", e => {
+                e.target.innerText = "In Cart";
+                e.target.disabled = true;
+            })
+        });
     }
 }
 
