@@ -60,8 +60,13 @@ class UI {
     }
 
     getButtons() {
-        const buttons = document.querySelectorAll('.addToCart')
-        console.log(buttons)
+        const buttons = [...document.querySelectorAll('.addToCart')]
+        
+        buttonDOM = buttons
+        buttons.forEach(button=>{
+            const id = button.dataset.id;
+            console.log(id);
+        })
     }
 }
 
