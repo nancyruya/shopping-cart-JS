@@ -74,8 +74,15 @@ class UI {
 
             //when click, passing callback function
             button.addEventListener("click", e => {
+                e.preventDefault();
                 e.target.innerText = "In Cart";
                 e.target.disabled = true;
+
+                //get product from products
+                //add the product to cart
+                //store the product in local storage
+                //setItemValues
+                //display the items in the cart
             })
         });
     }
