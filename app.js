@@ -2,8 +2,8 @@ const openCart = document.querySelector(".cart__icon");
 const closeCart = document.querySelector(".close__cart");
 const productDOM = document.querySelector(".product__center");
 const cartDOM = document.querySelector(".cart__center");
-const itemsTotal = document.querySelector('.item__total');
-const cartTotal = document.querySelector('.cart__total');
+const itemsTotal = document.querySelector(".item__total");
+const cartTotal = document.querySelector(".cart__total");
 
 let cart = [];
 
@@ -90,6 +90,7 @@ class UI {
         //setItemValues
         this.setItemValues(cart);
         //display the items in the cart
+        this.addToCart(cartItem);
       });
     });
   }
@@ -104,6 +105,40 @@ class UI {
 
     itemsTotal.innerText = itemTotal;
     cartTotal.innerText = parseFloat(tempTotal.toFixed(2)); //2 decimal places
+  }
+
+  addToCart({ title, price, image, id }) {
+    let div = document.createElement('div');
+    div.classList.add('cart__item');
+
+    div.innerHTML = `<img src=${image} alt="">
+    <div>
+      <h3>${title}</h3>
+      <h3 class="price">$${price}</h3>
+    </div>
+    <div>
+      <span data-id=${id}>
+        <svg>
+          <use xlink:href="./images/sprite.svg#icon-angle-up"></use>
+        </svg>
+      </span>
+      <p>3</p>
+      <span data-id=${id}>
+        <svg>
+          <use xlink:href="./images/sprite.svg#icon-angle-down"></use>
+        </svg>
+      </span>
+    </div>
+
+    <div>
+      <span class="remove__item">
+        <svg>
+          <use xlink:href="./images/sprite.svg#icon-trash"></use>
+        </svg>
+      </span>
+    </div>`;
+
+    cartDOM.appendChild(div);
   }
 }
 
