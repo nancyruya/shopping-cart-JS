@@ -2,6 +2,8 @@ const openCart = document.querySelector(".cart__icon");
 const closeCart = document.querySelector(".close__cart");
 const productDOM = document.querySelector(".product__center");
 const cartDOM = document.querySelector(".cart__center");
+const itemsTotal = document.querySelector('.item__total');
+const cartTotal = document.querySelector('.cart__total');
 
 let cart = [];
 
@@ -9,10 +11,10 @@ let buttonDOM = [];
 
 //UI
 class UI {
-    displayProducts(obj) {
-        let results = "";
-        obj.forEach(({ title, image, id, price }) => {
-            results += `<div class="product">
+  displayProducts(obj) {
+    let results = "";
+    obj.forEach(({ title, image, id, price }) => {
+      results += `<div class="product">
             <div class="image__container">
               <img src=${image} alt="" />
             </div>
@@ -54,58 +56,71 @@ class UI {
               </div>
             </div>
           </div>`;
-        });
+    });
 
-        productDOM.innerHTML = results;
-    }
+    productDOM.innerHTML = results;
+  }
 
-    getButtons() {
-        const buttons = [...document.querySelectorAll('.addToCart')]
-        
-        buttonDOM = buttons
-        buttons.forEach(button=>{
-            const id = button.dataset.id;
-            const inCart = cart.find(item => item.id === id);
+  getButtons() {
+    const buttons = [...document.querySelectorAll(".addToCart")];
 
-            if (inCart) {
-                button.innerText = "In Cart";
-                button.disabled = true;
-            }
+    buttonDOM = buttons;
+    buttons.forEach((button) => {
+      const id = button.dataset.id;
+      const inCart = cart.find((item) => item.id === id);
 
-            //when click, passing callback function
-            button.addEventListener("click", e => {
-                e.preventDefault();
-                e.target.innerText = "In Cart";
-                e.target.disabled = true;
+      if (inCart) {
+        button.innerText = "In Cart";
+        button.disabled = true;
+      }
 
-                //get product from products
-                const cartItem = Storage.getProducts(id);
-                console.log(cartItem);
-                //add the product to cart
-                cart = [...cart, cartItem]  //iterate cart and show cartItem
-                //store the product in local storage
-                Storage.saveCart(cart)
-                //setItemValues
-                //display the items in the cart
-            })
-        });
-    }
+      //when click, passing callback function
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.target.innerText = "In Cart";
+        e.target.disabled = true;
+
+        //get product from products
+        const cartItem = { ...Storage.getProducts(id), amount: 1 }; //add spread operator and amount property
+        console.log(cartItem);
+        //add the product to cart
+        cart = [...cart, cartItem]; //iterate cart and show cartItem
+        //store the product in local storage
+        Storage.saveCart(cart);
+        //setItemValues
+        this.setItemValues(cart);
+        //display the items in the cart
+      });
+    });
+  }
+  setItemValues(cart) {
+    let tempTotal = 0;
+    let itemTotal = 0;
+
+    cart.map((item) => {
+      tempTotal += item.price * item.amount;
+      itemTotal += item.amount;
+    });
+
+    itemsTotal.innerText = itemTotal;
+    cartTotal.innerText = parseFloat(tempTotal.toFixed(2)); //2 decimal places
+  }
 }
 
 //storage
 //use static method
 class Storage {
-    static saveProducts(obj){
-        localStorage.setItem("products", JSON.stringify(obj));
-    }
+  static saveProducts(obj) {
+    localStorage.setItem("products", JSON.stringify(obj));
+  }
 
-    static saveCart(cart) {
-        localStorage.setItem("carts", JSON.stringify(cart));
-    }
-    static getProducts(id) {
-        const products = JSON.parse(localStorage.getItem('products'))
-        return products.find(item => item.id=== parseInt(id))
-    }
+  static saveCart(cart) {
+    localStorage.setItem("carts", JSON.stringify(cart));
+  }
+  static getProducts(id) {
+    const products = JSON.parse(localStorage.getItem("products"));
+    return products.find((item) => item.id === parseInt(id));
+  }
 }
 
 //products
