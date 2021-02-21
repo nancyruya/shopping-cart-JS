@@ -79,6 +79,8 @@ class UI {
                 e.target.disabled = true;
 
                 //get product from products
+                const cartItem = Storage.getProducts(id);
+                console.log(cartItem);
                 //add the product to cart
                 //store the product in local storage
                 //setItemValues
@@ -93,6 +95,11 @@ class UI {
 class Storage {
     static saveProducts(obj){
         localStorage.setItem("products", JSON.stringify(obj));
+    }
+
+    static getProducts(id) {
+        const products = JSON.parse(localStorage.getItem('products'))
+        return products.find(item => item.id=== parseInt(id))
     }
 }
 
